@@ -3,16 +3,6 @@
 #include <string.h>
 #define ARRAY_LEN 2620 //include both lowercase and uppercase letter
 
-//for debugging purposes:
-//#ifdef DEBUG
-//   *debugging statements here*
-//#endif
-//struct State{
-    //int Current;
-    //char Input;
-  //  struct State *Next;
-//};
-
 int getNextState(int lenArr, int state, char input, int StateArr[], char InputArr[], int NextStateArr[]);
 int printState(int in_line, int state, char inputChar, int lenArr,  int StateArr[], char InputArr[], int NextStateArr[]);
 
@@ -108,6 +98,13 @@ int main(int argc, char *argv[]) {
             printf("incorrect format for input to FSM file");
             return -1;
         }
+
+        //check to make sure that no negative integers were in the FSM mapper
+        if (StateArr[line_no]<0 || NextStateArr[line_no]<0){
+            printf("Only positive states allowed in the FSM");
+            return -1;
+        }
+
         line_no++;
     }
 
@@ -184,4 +181,3 @@ int printState(int step, int state, char input, int length, int StateArr[], char
 
     return nextState;
     }
-
