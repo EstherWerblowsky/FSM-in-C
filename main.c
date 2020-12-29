@@ -91,19 +91,19 @@ int main(int argc, char *argv[]) {
         line_no++;
     }
 
-    printf("The FSM has %d transitions \n", line_no);
+    printf("The FSM has %d transitions \n", line_no+1);
     char inputChar;
     int in_line = 0;
     int state = 0;
-    while((fscanf(input, "%c%c", &inputChar, &garbage))&& in_line<ARRAY_LEN){
-        int result = printState(in_line, state, inputChar, line_no, StateArr, InputArr, NextStateArr);
-        if (result == -1){
+    while((fscanf(input, "%c%c", &inputChar, &garbage))!=EOF && in_line<250){
+        state = printState(in_line, state, inputChar, line_no, StateArr, InputArr, NextStateArr);
+        if (state == -1){
             printf("Invalid Input to FSM \n");
             return -1;
         }
         in_line ++;
     }
-
+    printf("after %d steps, state machine finished successfully at state %d\n", in_line, state);
     fclose(mapper);
     fclose(input);
 }
@@ -141,5 +141,3 @@ int printState(int step, int state, char input, int length, int StateArr[], char
     state = nextState;
     return state;
     }
-
-
