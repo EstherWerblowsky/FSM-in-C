@@ -70,9 +70,13 @@ int main(int argc, char *argv[]) {
     char InputArr[ARRAY_LEN];
     char garbage, garbageMore;
     int line_no = 0;
+    int scanResult;
 
-    while((fscanf(mapper, "%d%c%c%c%d", &StateArr[line_no],  &garbage, &InputArr[line_no], &garbageMore, &NextStateArr[line_no]))!= EOF && line_no< ARRAY_LEN){
-        //FSM( line_no, state ,in, next, StateArr, InputArr, NextStateArr);
+    while((scanResult = fscanf(mapper, "%d%c%c%c%d", &StateArr[line_no],  &garbage, &InputArr[line_no], &garbageMore, &NextStateArr[line_no]))!= EOF && line_no< ARRAY_LEN){
+        if(scanResult<5){
+            printf("incorrect format for input to FSM file");
+            return -1;
+        }
         line_no++;
     }
 
@@ -80,9 +84,8 @@ int main(int argc, char *argv[]) {
     char inputChar;
     int in_line = 0;
     int state = 0;
-    int scanResult;
     while((scanResult = fscanf(input, "%c%c", &inputChar, &garbage))!=EOF && in_line<250){
-        if (scanResult > 2){                         //checks to make sure that the correct input was given
+        if (scanResult <1){                         //checks to make sure that the correct input was given
             printf("Invalid input to FSM");
             return -1;
         }
